@@ -4,6 +4,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 import { createStore, combineReducers, applyMiddleware } from "redux";
+import { Provider } from 'react-redux';
 
 const initialState = {
     result: 0,
@@ -11,7 +12,7 @@ const initialState = {
 };
 
 const userReducer = (state = {
-    name: "Traxxex",
+    name: "Traxxex - Drow Ranger",
     age: 25
 }, action) => {
     switch (action.type) {
@@ -62,25 +63,10 @@ store.subscribe(() => {
     console.log("Store Updated : ", store.getState());
 });
 
-store.dispatch({
-    type: "ADD",
-    payload: 100
-});
 
-store.dispatch({
-    type: "ADD",
-    payload: 5
-});
-
-store.dispatch({
-    type: "SUBTRACT",
-    payload: 15
-});
-
-store.dispatch({
-    type: "SETNAME",
-    payload: "Drow Ranger"
-});
-
-ReactDOM.render( < App / > , document.getElementById('root'));
-registerServiceWorker();
+ReactDOM.render(
+    <Provider store={store}>
+        <App/>
+    </Provider>,  document.getElementById('root')
+);
+registerServiceWorker()
